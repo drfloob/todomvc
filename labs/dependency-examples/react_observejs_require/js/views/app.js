@@ -24,14 +24,8 @@ define(['react', 'jsx!views/main', 'jsx!views/footer'], function(React, UIMain, 
         componentDidMount: function() {
             var self = this;
 
-            // self.obs = new Observer.ArrayObserver(self.props.todos);
-            // self.obs.open(function(splices) {
-            //     console.log('updating app', splices);
-            //     self.forceUpdate();
-            // });
-
-            ObserveUtils.List.observe(self.props.todos, function() {
-                console.log('updating app', splices);
+            Object.observe(self.props.todos, function(event) {
+                console.log('updating app', event);
                 self.forceUpdate();
             });
         }
