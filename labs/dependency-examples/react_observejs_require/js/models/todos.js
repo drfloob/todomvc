@@ -10,11 +10,13 @@ define(['observe-shim', 'observe-utils'], function() {
     function TodoItem(name) {
         ObserveUtils.defineObservableProperties(this, 'id', 'name', 'completed');
         this.name = name;
-        this.id = nextId++;
+        this.id = 'key' + nextId++;
         this.completed = false;
+        this.deleted = false;
 
         this.delete = function() {
             TodoList.splice(TodoList.indexOf(this), 1);
+            this.deleted = true;
         };
     };
 

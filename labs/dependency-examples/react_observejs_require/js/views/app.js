@@ -2,6 +2,8 @@
 
 define(['react', 'jsx!views/main', 'jsx!views/footer'], function(React, UIMain, UIFooter) {
 
+    var ENTER_KEY = 13;
+
     var UIApp = React.createClass({
         
         render: function() {
@@ -10,7 +12,7 @@ define(['react', 'jsx!views/main', 'jsx!views/footer'], function(React, UIMain, 
                 <div>
 		    <header id="header">
 		    <h1>todos</h1>
-		    <input id="new-todo" placeholder="What needs to be done?" autoFocus="true" />
+		    <input id="new-todo" ref="newTodo" placeholder="What needs to be done?" autoFocus="true" onKeyPress={this.handleNewTodoKeypress} />
 		    </header>
 
                     <UIMain todos={this.props.todos} />
@@ -26,8 +28,23 @@ define(['react', 'jsx!views/main', 'jsx!views/footer'], function(React, UIMain, 
 
             Object.observe(self.props.todos, function(event) {
                 console.log('updating app', event);
-                self.forceUpdate();
+                self.setState();
             });
+        },
+        
+        handleNewTodoKeypress: function(event) {
+            if (event.keyCode != ENTER_KEY) {
+                return;
+            }
+
+            var node = this.refs.newTodo.getDOMNode();
+            var name = node.value.trim();
+            if (name == "") {
+                return;
+            }
+
+            this.props.todos.addItem(name);
+            node.value = "";
         }
 
     });
