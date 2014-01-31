@@ -16,9 +16,9 @@ require.config({
     }
 });
 
-require(['models/todos', 'jsx!views/app', 'react', 'router','observe-shim', 'observe-utils'], function(Todos, UIApp, React, router) {
+require(['jsx!views/app', 'react', 'router','observe-shim', 'observe-utils'], function(UIApp, React, router) {
 
-    React.renderComponent(UIApp({todos: Todos}), document.getElementById('todoapp'));
+    React.renderComponent(UIApp(), document.getElementById('todoapp'));
     router.init();
 
 });

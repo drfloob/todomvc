@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-define(['react', 'jsx!views/main', 'jsx!views/footer', 'router'], function(React, UIMain, UIFooter, router) {
+define(['react', 'jsx!views/main', 'jsx!views/footer', 'router', 'models/todos'], function(React, UIMain, UIFooter, router, Todos) {
 
     var ENTER_KEY = 13;
 
@@ -21,6 +21,10 @@ define(['react', 'jsx!views/main', 'jsx!views/footer', 'router'], function(React
 
                     </div>
             );
+        },
+
+        getDefaultProps: function() {
+            return {todos: Todos};
         },
 
         getInitialState: function() {

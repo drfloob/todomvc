@@ -1,14 +1,14 @@
 /** @jsx React.DOM */
 
-define(['react', 'jsx!views/todoList'], function(React, UITodoList) {
+define(['react', 'jsx!views/todoList', 'router'], function(React, UITodoList, router) {
 
     var UIMain = React.createClass({
         
         render: function() {
+            console.log('main rendering');
 
             var count = this.props.todos.length;
             var sectionStyle = {visibility: count > 0 ? 'visible' : 'hidden'};
-            console.log('main rendering');
 
             return ( 
 
@@ -16,7 +16,7 @@ define(['react', 'jsx!views/todoList'], function(React, UITodoList) {
 		    <input id="toggle-all" type="checkbox" checked={this.props.allChecked} onChange={this.toggleAll} />
 		    <label htmlFor="toggle-all">Mark all as complete</label>
 
-                    <UITodoList todos={this.props.todos} />
+                    <UITodoList todos={this.props.shownTodos} />
 
 		    </section>
 
@@ -25,21 +25,36 @@ define(['react', 'jsx!views/todoList'], function(React, UITodoList) {
 
         toggleAll: function(event) {
             var complete = event.target.checked;
-            this.props.todos.forEach(function(t){t.completed = complete});
+            this.props.shownTodos.forEach(function(t){t.completed = complete});
         },
 
         componentWillMount: function() {
             this.watchTodos(this, this.props);
+            this.filterTodos(this, this.props);
         },
 
         componentWillUpdate: function(nextProps) {
             console.log('main willUpdate');
             this.unwatchTodos(this, this.props);
             this.watchTodos(this, nextProps);
+            this.filterTodos(this, nextProps);
         },
 
         componentWillUnmount: function() {
             this.unwatchTodos(this, this.props);
+        },
+
+
+        filterTodos: function(self, props) {
+            var shownTodos;
+            if (props.filter === router.ALL) {
+                shownTodos = props.todos;
+            } else if (props.filter === router.ACTIVE) {
+                shownTodos = props.todos.getActive();
+            } else if (props.filter === router.COMPLETED) {
+                shownTodos = props.todos.getCompleted();
+            }
+            props.shownTodos = shownTodos;
         },
 
         watchTodos: function(self, props) {
