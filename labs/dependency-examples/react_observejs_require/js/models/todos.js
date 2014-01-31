@@ -43,8 +43,5 @@ define(['observe-shim', 'observe-utils'], function() {
         };
     };
 
-    // TODO: remove test data
-    list.addItem('bort');
-
     return list;
 });

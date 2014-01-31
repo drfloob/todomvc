@@ -29,7 +29,7 @@ define(['react', 'jsx!views/todoList', 'router'], function(React, UITodoList, ro
 
         toggleAll: function(event) {
             var complete = event.target.checked;
-            this.props.shownTodos.forEach(function(t){t.completed = complete});
+            this.props.todos.forEach(function(t){t.completed = complete});
         },
 
         componentWillMount: function() {
@@ -63,7 +63,7 @@ define(['react', 'jsx!views/todoList', 'router'], function(React, UITodoList, ro
 
         watchTodos: function(self, props) {
             console.log('main watchTodos');
-            props.allChecked = props.shownTodos.every(function(t) { return t.completed; });
+            props.allChecked = props.todos.every(function(t) { return t.completed; });
 
             props.cb = function() {
                 console.log('main cb');
