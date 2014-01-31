@@ -1,12 +1,10 @@
 /** @jsx React.DOM */
 
-define(['react', 'router'], function(React, router) {
+define(['react', 'router', 'mixins/propWatchAll'], function(React, router, PropWatchAll) {
 
     var UIFooter = React.createClass({
 
         render: function() {
-            console.log('rendering footer');
-
             var completed = this.props.todos.getCompleted();
             var active = this.props.todos.getActive();
 
@@ -43,45 +41,19 @@ define(['react', 'router'], function(React, router) {
             );
         },
 
-        componentWillMount: function() {
-            this.watchTodos(this, this.props);
-        },
+        mixins: [PropWatchAll],
 
-        componentWillUpdate: function(nextProps) {
-            this.unwatchTodos(this, this.props);
-            this.watchTodos(this, nextProps);
-        },
-
-        componentWillUnmount: function() {
-            this.unwatchTodos(this, this.props);
+        propWatchAll_getLists: function(emit, props) {
+            emit(props.todos);
         },
 
 
         //--------------------------------------------------------------------------------
-        // TODO watchers
+        // CALLBACKS
         
-        watchTodos: function(self, props) {
-            props.cb = function() {
-                self.setState();
-            };
-            props.todos.forEach(function(t) {
-                Object.observe(t, props.cb);
-            });
-        },
-
-        unwatchTodos: function(self, props) {
-            props.todos.forEach(function(t) {
-                Object.unobserve(t, props.cb);
-            });
-        },
-
-
-
-
         handleClearCompleted: function() {
-            this.props.todos.filter(function(t) { return t.completed }).forEach(function(t) { t.delete(); });
+            this.props.todos.getCompleted().forEach(function(t) { t.delete(); });
         }
-        
 
     });
 

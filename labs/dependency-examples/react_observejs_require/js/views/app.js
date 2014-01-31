@@ -42,7 +42,6 @@ define(['react', 'jsx!views/main', 'jsx!views/footer', 'router', 'models/todos']
             // set filter state and update on route change
             var setFilter = function(route) { 
                 return function() {
-                    console.log('setting filter', route);
                     self.setState({filter: route}); 
                 }; 
             };

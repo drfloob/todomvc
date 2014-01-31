@@ -2,8 +2,6 @@
 define(['react', 'jsx!views/todo', 'router'], function(React, UITodo, router) {
     var UITodoList = React.createClass({
         render: function() {
-            console.log('todoList rendering');
-
             var lis = this.props.shownTodos.map(function(t) { 
                 return ( <UITodo key={t.id} todo={t} /> );
             });

@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-define(['react', '../models/todos'], function(React, Todos) {
+define(['react', '../models/todos', 'mixins/propWatch'], function(React, Todos, PropWatch) {
     var ENTER_KEY = 13;
     var ESCAPE_KEY = 27;
 
@@ -77,28 +77,17 @@ define(['react', '../models/todos'], function(React, Todos) {
         //--------------------------------------------------------------------------------
         // COMPONENT LIFECYCLE METHODS
 
+        mixins: [PropWatch],
+        propWatch_getObjs: function(emit, props) {
+            emit(props.todo);
+        },
+        
         getInitialState: function(){
             return {editing: false, name: this.props.todo.name};
         },
 
-        componentWillMount: function() {
-            var self = this;
-            this.props.cb = function(changes) {
-                self.forceUpdate();
-            };
-            Object.observe(this.props.todo, this.props.cb);
-        },
-
         componentWillReceiveProps: function(nextProps) {
-            Object.unobserve(this.props.todo, this.props.cb);
-
-            var self = this;
-            nextProps.cb = function(changes) {
-                self.forceUpdate();
-            };
-            Object.observe(nextProps.todo, nextProps.cb);
-
-            self.setState({editing: false, name: nextProps.todo.name});
+            this.setState({editing: false, name: nextProps.todo.name});
         },
 
         componentDidUpdate: function() {
@@ -106,11 +95,8 @@ define(['react', '../models/todos'], function(React, Todos) {
                 this.refs.edit.getDOMNode().focus();
                 window.getSelection().collapseToEnd();
             }
-        },
-
-        componentWillUnmount: function() {
-            Object.unobserve(this.props.todo, this.props.cb);
         }
+
 
     });
     return UITodo;

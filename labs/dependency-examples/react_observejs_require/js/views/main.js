@@ -1,9 +1,9 @@
 /** @jsx React.DOM */
 
-define(['react', 'jsx!views/todoList'], function(React, UITodoList) {
+define(['react', 'jsx!views/todoList', 'mixins/propWatchAll'], function(React, UITodoList, PropWatchAll) {
 
     var UIMain = React.createClass({
-        
+
         render: function() {
             var count = this.props.todos.length;
             var sectionStyle = {visibility: count > 0 ? 'visible' : 'hidden'};
@@ -26,38 +26,15 @@ define(['react', 'jsx!views/todoList'], function(React, UITodoList) {
             this.props.todos.forEach(function(t){t.completed = complete});
         },
 
-        componentWillMount: function() {
-            this.watchTodos(this.props);
-        },
 
-        componentWillUpdate: function(nextProps) {
-            this.unwatchTodos(this.props);
-            this.watchTodos(nextProps);
+        mixins: [PropWatchAll],
+        propWatchAll_getLists: function(emit, props) {
+            emit(props.todos);
         },
-
-        componentWillUnmount: function() {
-            this.unwatchTodos(this.props);
-        },
-
-        watchTodos: function(props) {
-            var self = this;
+        propWatchAll_onWatch: function(props) {
             props.allChecked = props.todos.every(function(t) { return t.completed; });
-
-            props.cb = function() {
-                self.setState();
-            };
-            props.todos.forEach(function(t) {
-                Object.observe(t, props.cb);
-            });
         },
-
-        unwatchTodos: function(props) {
-            var self = this;
-            props.todos.forEach(function(t) {
-                Object.unobserve(t, props.cb);
-            });
-        }
-
+        
     });
 
     return UIMain;
