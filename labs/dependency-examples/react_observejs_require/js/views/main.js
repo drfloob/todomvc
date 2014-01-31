@@ -7,13 +7,12 @@ define(['react', 'jsx!views/todoList'], function(React, UITodoList) {
         render: function() {
 
             var count = this.props.todos.length;
-
-            var sStyle = {visibility: count > 0 ? 'visible' : 'hidden'};
+            var sectionStyle = {visibility: count > 0 ? 'visible' : 'hidden'};
 
             return ( 
 
-		    <section style={sStyle} id="main">
-		    <input id="toggle-all" type="checkbox" />
+		    <section style={sectionStyle} id="main">
+		    <input id="toggle-all" type="checkbox" onChange={this.toggleAll} />
 		    <label htmlFor="toggle-all">Mark all as complete</label>
 
                     <UITodoList todos={this.props.todos} />
@@ -21,6 +20,11 @@ define(['react', 'jsx!views/todoList'], function(React, UITodoList) {
 		    </section>
 
             );
+        },
+
+        toggleAll: function(event) {
+            var complete = event.target.checked;
+            this.props.todos.forEach(function(t){t.completed = complete});
         }
 
     });

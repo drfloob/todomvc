@@ -16,7 +16,6 @@ define(['react', '../models/todos'], function(React, Todos) {
         },
 
         handleComplete: function() {
-            console.log('handleComplete');
             this.props.todo.completed = !this.props.todo.completed;
         },
 
@@ -27,7 +26,6 @@ define(['react', '../models/todos'], function(React, Todos) {
         componentWillMount: function() {
             var self = this;
             Object.observe(this.props.todo, function(changes) {
-                console.log('todo observer edit');
                 self.forceUpdate();
             });
         },
