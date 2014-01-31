@@ -11,12 +11,14 @@ require.config({
     },
     shim: {
         'JSXTransformer': {exports: 'JSXTransformer'},
-        'observe-shim': {deps: ['setImmediate']}
+        'observe-shim': {deps: ['setImmediate']},
+        'director': {exports: 'Router'}
     }
 });
 
-require(['models/todos', 'jsx!views/app', 'react', 'observe-shim', 'observe-utils'], function(Todos, UIApp, React) {
+require(['models/todos', 'jsx!views/app', 'react', 'router','observe-shim', 'observe-utils'], function(Todos, UIApp, React, router) {
 
     React.renderComponent(UIApp({todos: Todos}), document.getElementById('todoapp'));
-    
+    router.init();
+
 });

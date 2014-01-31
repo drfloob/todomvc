@@ -44,10 +44,7 @@ define(['react', 'jsx!views/todoList'], function(React, UITodoList) {
 
         watchTodos: function(self, props) {
             console.log('main watchTodos');
-            var all = props.todos.every(function(t) {
-                return t.completed;
-            });
-            self.props.allChecked = all;
+            props.allChecked = (props.todos.getCompleted().length === props.todos.length);
 
             props.cb = function() {
                 console.log('main cb');
