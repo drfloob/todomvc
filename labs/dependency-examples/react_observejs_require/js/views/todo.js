@@ -28,22 +28,18 @@ define(['react', '../models/todos'], function(React, Todos) {
             );
         },
 
-        getInitialState: function(){
-            return {editing: false, name: this.props.todo.name};
-        },
+        //--------------------------------------------------------------------------------
+        // CALLBACKS
 
         handleComplete: function() {
-            console.log('completing', this.props.todo.name);
             this.props.todo.completed = !this.props.todo.completed;
         },
 
         handleDestroy: function() {
-            console.log('destroying', this.props.todo.name);
             this.props.todo.delete();
         },
 
         handleDoubleClick: function() {
-            console.log('handling double click');
             this.setState({editing: true});
         },
 
@@ -64,6 +60,10 @@ define(['react', '../models/todos'], function(React, Todos) {
             this.saveEdits();
         },
 
+
+        //--------------------------------------------------------------------------------
+        // INTERNAL FUNCTIONS
+
         saveEdits: function() {
             this.props.todo.name = this.refs.edit.getDOMNode().value.trim();
             if (this.props.todo.name === '') {
@@ -72,24 +72,28 @@ define(['react', '../models/todos'], function(React, Todos) {
             this.setState({editing: false});
         },
 
+
+
+        //--------------------------------------------------------------------------------
+        // COMPONENT LIFECYCLE METHODS
+
+        getInitialState: function(){
+            return {editing: false, name: this.props.todo.name};
+        },
+
         componentWillMount: function() {
-            console.log('mounting', this.props.todo.name);
             var self = this;
             this.props.cb = function(changes) {
-                console.log('forceUpdating', self);
                 self.forceUpdate();
             };
             Object.observe(this.props.todo, this.props.cb);
         },
 
         componentWillReceiveProps: function(nextProps) {
-            console.log('will receive props', this.props.key, nextProps.key);
-
             Object.unobserve(this.props.todo, this.props.cb);
 
             var self = this;
             nextProps.cb = function(changes) {
-                console.log('forceUpdating', self);
                 self.forceUpdate();
             };
             Object.observe(nextProps.todo, nextProps.cb);
@@ -98,23 +102,14 @@ define(['react', '../models/todos'], function(React, Todos) {
         },
 
         componentDidUpdate: function() {
-            console.log('updated', this.props.todo.name);
             if (this.state.editing) {
                 this.refs.edit.getDOMNode().focus();
                 window.getSelection().collapseToEnd();
             }
         },
 
-
-
         componentWillUnmount: function() {
-            console.log('unmounting', this.props.todo.name);
             Object.unobserve(this.props.todo, this.props.cb);
-        },
-
-        shouldComponentUpdate: function(nextProps) {
-            console.log('shouldComponentUpdate: always true');
-            return true;
         }
 
     });
