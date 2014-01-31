@@ -1,8 +1,16 @@
 /** @jsx React.DOM */
 
-define(['react', 'router', 'mixins/propWatchAll'], function(React, router, PropWatchAll) {
+define(['react', 'router'], function(React, router) {
 
     var UIFooter = React.createClass({
+
+        mixins: [Object.observe.react.watchAll],
+        observe: {
+            whichLists: function(emit, props) {
+                emit(props.todos);
+            }
+        },
+
 
         render: function() {
             var completed = this.props.todos.getCompleted();
@@ -40,13 +48,6 @@ define(['react', 'router', 'mixins/propWatchAll'], function(React, router, PropW
                     </footer>
             );
         },
-
-        mixins: [PropWatchAll],
-
-        propWatchAll_getLists: function(emit, props) {
-            emit(props.todos);
-        },
-
 
         //--------------------------------------------------------------------------------
         // CALLBACKS

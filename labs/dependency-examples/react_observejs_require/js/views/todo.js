@@ -1,9 +1,17 @@
 /** @jsx React.DOM */
-define(['react', '../models/todos', 'mixins/propWatch'], function(React, Todos, PropWatch) {
+define(['react', '../models/todos'], function(React, Todos) {
     var ENTER_KEY = 13;
     var ESCAPE_KEY = 27;
 
     var UITodo = React.createClass({
+
+        mixins: [Object.observe.react.watch],
+        observe: {
+            which: function(emit, props) {
+                emit(props.todo);
+            }
+        },
+
         render: function(){
             var cx = React.addons.classSet({
                 'completed': this.props.todo.completed,
@@ -77,11 +85,6 @@ define(['react', '../models/todos', 'mixins/propWatch'], function(React, Todos, 
         //--------------------------------------------------------------------------------
         // COMPONENT LIFECYCLE METHODS
 
-        mixins: [PropWatch],
-        propWatch_getObjs: function(emit, props) {
-            emit(props.todo);
-        },
-        
         getInitialState: function(){
             return {editing: false, name: this.props.todo.name};
         },
