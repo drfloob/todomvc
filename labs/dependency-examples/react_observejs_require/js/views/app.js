@@ -34,7 +34,7 @@ define(['react', 'jsx!views/main', 'jsx!views/footer', 'router', 'models/todos']
         componentDidMount: function() {
             var self = this;
 
-            // force update on todos list-specific changes
+            // force update on todo list-specific changes
             Object.observe(self.props.todos, function(event) {
                 self.setState();
             });
