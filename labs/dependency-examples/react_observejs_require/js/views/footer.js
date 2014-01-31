@@ -17,7 +17,7 @@ define(['react', 'router'], function(React, router) {
 
             var s = active.length == 1 ? '' : 's';
             var fStyle ={visibility: totalCount > 0 ? 'visible' : 'hidden'}
-
+            var cStyle = {visibility: completedCount > 0 ? 'visible' : 'hidden'}
 
             var allClass = this.props.filter === router.ALL ? 'selected' : '';
             var activeClass = this.props.filter === router.ACTIVE ? 'selected' : '';
@@ -25,7 +25,6 @@ define(['react', 'router'], function(React, router) {
 
             return ( 
 		    <footer style={fStyle} id="footer">
-		    {/*<!-- This should be `0 items left` by default -->*/}
 		    <span id="todo-count"><strong>{active.length}</strong> item{s} left</span>
 
                     <ul id="filters">
@@ -40,8 +39,7 @@ define(['react', 'router'], function(React, router) {
                     </li>
                     </ul>
 
-                    {/*<!-- Hidden if no completed items are left ↓ -->*/}
-                    <button id="clear-completed" onClick={this.handleClearCompleted} >Clear completed ({completedCount})</button>
+                    <button style={cStyle} id="clear-completed" onClick={this.handleClearCompleted} >Clear completed ({completedCount})</button>
 
                     </footer>
             );
