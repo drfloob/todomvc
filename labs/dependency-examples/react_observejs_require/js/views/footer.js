@@ -10,10 +10,8 @@ define(['react', 'router'], function(React, router) {
             var completed = this.props.todos.getCompleted();
             var active = this.props.todos.getActive();
 
-
             var totalCount = this.props.todos.length;
             var completedCount = completed.length;
-
 
             var s = active.length == 1 ? '' : 's';
             var fStyle ={visibility: totalCount > 0 ? 'visible' : 'hidden'}
