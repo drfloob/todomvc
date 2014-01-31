@@ -23,21 +23,25 @@ define(['react', 'jsx!views/todoList', 'router'], function(React, UITodoList, ro
             );
         },
 
+        getDefaultProps: function() {
+            return {shownTodos: this.props.todos};
+        },
+
         toggleAll: function(event) {
             var complete = event.target.checked;
             this.props.shownTodos.forEach(function(t){t.completed = complete});
         },
 
         componentWillMount: function() {
-            this.watchTodos(this, this.props);
             this.filterTodos(this, this.props);
+            this.watchTodos(this, this.props);
         },
 
         componentWillUpdate: function(nextProps) {
             console.log('main willUpdate');
             this.unwatchTodos(this, this.props);
-            this.watchTodos(this, nextProps);
             this.filterTodos(this, nextProps);
+            this.watchTodos(this, nextProps);
         },
 
         componentWillUnmount: function() {
@@ -59,7 +63,7 @@ define(['react', 'jsx!views/todoList', 'router'], function(React, UITodoList, ro
 
         watchTodos: function(self, props) {
             console.log('main watchTodos');
-            props.allChecked = (props.todos.getCompleted().length === props.todos.length);
+            props.allChecked = props.shownTodos.every(function(t) { return t.completed; });
 
             props.cb = function() {
                 console.log('main cb');

@@ -1,18 +1,35 @@
 /** @jsx React.DOM */
 define(['react', '../models/todos'], function(React, Todos) {
+    var ENTER_KEY = 13;
+    var ESCAPE_KEY = 27;
+
     var UITodo = React.createClass({
         render: function(){
-            var cx = React.addons.classSet({'completed': this.props.todo.completed});
+            var cx = React.addons.classSet({
+                'completed': this.props.todo.completed,
+                'editing': this.state.editing
+            });
             return (
-                    <li className={cx}>
+                    <li ref="li" className={cx}>
 		    <div className="view">
 		    <input className="toggle" type="checkbox" checked={this.props.todo.completed} onChange={this.handleComplete} />
-		    <label>{this.props.todo.name}</label>
+		    <label onDoubleClick={this.handleDoubleClick} >{this.props.todo.name}</label>
 		    <button className="destroy" onClick={this.handleDestroy}></button>
 		    </div>
-		    <input className="edit" value={this.props.todo.name} />
+		    <input 
+                ref="edit" 
+                className="edit" 
+                value={this.state.name} 
+                onChange={this.handleChangeEdit} 
+                onKeyUp={this.handleEditKeypress} 
+                onBlur={this.saveEdits}
+                    />
                     </li>
             );
+        },
+
+        getInitialState: function(){
+            return {editing: false, name: this.props.todo.name};
         },
 
         handleComplete: function() {
@@ -25,6 +42,36 @@ define(['react', '../models/todos'], function(React, Todos) {
             this.props.todo.delete();
         },
 
+        handleDoubleClick: function() {
+            console.log('handling double click');
+            this.setState({editing: true});
+        },
+
+        handleChangeEdit: function(evt) {
+            this.setState({name: evt.target.value});
+        },
+
+        handleEditKeypress: function(evt) {
+            if (evt.keyCode == ESCAPE_KEY) {
+                this.refs.edit.getDOMNode().value = this.props.todo.name;
+                this.setState({editing: false, name: this.props.todo.name});
+                return;
+            }
+            if (evt.keyCode != ENTER_KEY) {
+                return;
+            } 
+
+            this.saveEdits();
+        },
+
+        saveEdits: function() {
+            this.props.todo.name = this.refs.edit.getDOMNode().value.trim();
+            if (this.props.todo.name === '') {
+                this.props.todo.delete();
+            };
+            this.setState({editing: false});
+        },
+
         componentWillMount: function() {
             console.log('mounting', this.props.todo.name);
             var self = this;
@@ -35,8 +82,8 @@ define(['react', '../models/todos'], function(React, Todos) {
             Object.observe(this.props.todo, this.props.cb);
         },
 
-        componentWillUpdate: function(nextProps) {
-            console.log('will update', this.props.key, nextProps.key);
+        componentWillReceiveProps: function(nextProps) {
+            console.log('will receive props', this.props.key, nextProps.key);
 
             Object.unobserve(this.props.todo, this.props.cb);
 
@@ -46,10 +93,16 @@ define(['react', '../models/todos'], function(React, Todos) {
                 self.forceUpdate();
             };
             Object.observe(nextProps.todo, nextProps.cb);
+
+            self.setState({editing: false, name: nextProps.todo.name});
         },
 
         componentDidUpdate: function() {
             console.log('updated', this.props.todo.name);
+            if (this.state.editing) {
+                this.refs.edit.getDOMNode().focus();
+                window.getSelection().collapseToEnd();
+            }
         },
 
 
@@ -62,8 +115,6 @@ define(['react', '../models/todos'], function(React, Todos) {
         shouldComponentUpdate: function(nextProps) {
             console.log('shouldComponentUpdate: always true');
             return true;
-            // console.log('shouldComponentUpdate', this.props.todo.name, this.props.todo.deleted);
-            // return this.props.todo.deleted;
         }
 
     });
