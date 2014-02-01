@@ -1,16 +1,6 @@
 /** @jsx React.DOM */
-define(['react', '../models/todos'], function(React, Todos) {
-    var ENTER_KEY = 13;
-    var ESCAPE_KEY = 27;
-
+define(['react', '../models/todos', 'mixins/inputWatcher'], function(React, Todos, InputWatcher) {
     var UITodo = React.createClass({
-
-        mixins: [Object.observe.react.watch],
-        observe: {
-            which: function(emit, props) {
-                emit(props.todo);
-            }
-        },
 
         render: function(){
             var cx = React.addons.classSet({
@@ -29,12 +19,20 @@ define(['react', '../models/todos'], function(React, Todos) {
                 className="edit" 
                 value={this.state.name} 
                 onChange={this.handleChangeEdit} 
-                onKeyUp={this.handleEditKeypress} 
+                onKeyUp={this.inputWatcher.makeForRef('edit', this)} 
                 onBlur={this.saveEdits}
                     />
                     </li>
             );
         },
+
+        mixins: [Object.observe.react.watch, InputWatcher],
+        observe: {
+            which: function(emit, props) {
+                emit(props.todo);
+            }
+        },
+
 
         //--------------------------------------------------------------------------------
         // CALLBACKS
@@ -55,19 +53,18 @@ define(['react', '../models/todos'], function(React, Todos) {
             this.setState({name: evt.target.value});
         },
 
-        handleEditKeypress: function(evt) {
-            if (evt.keyCode == ESCAPE_KEY) {
-                this.refs.edit.getDOMNode().value = this.props.todo.name;
-                this.setState({editing: false, name: this.props.todo.name});
-                return;
-            }
-            if (evt.keyCode != ENTER_KEY) {
-                return;
-            } 
 
-            this.saveEdits();
+        // InputWatcher Callbacks
+        // All assumed for this.refs.edit
+        onEscape: function(refName, ref) {
+            console.log('in onEscape', this);
+            ref.getDOMNode().value = this.props.todo.name;
+            this.setState({editing: false, name: this.props.todo.name});
         },
 
+        onEnter: function(refName, ref) {
+            this.saveEdits();
+        },
 
         //--------------------------------------------------------------------------------
         // INTERNAL FUNCTIONS

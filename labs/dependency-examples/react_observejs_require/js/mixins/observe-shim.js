@@ -1,8 +1,8 @@
 /** @jsx React.DOM */
 
-define(['react'], function(React) {
+define(['observe-shim'], function() {
 
-    Object.observe.react = Object.react || {};
+    Object.observe.react = Object.observe.react || {};
     Object.observe.react.watch = {
         componentWillMount: function() {
             this.watch(this.props);

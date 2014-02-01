@@ -1,18 +1,22 @@
 /** @jsx React.DOM */
 
-define(['react', 'jsx!views/main', 'jsx!views/footer', 'router', 'models/todos'], function(React, UIMain, UIFooter, router, Todos) {
-
-    var ENTER_KEY = 13;
+define(['react', 'jsx!views/main', 'jsx!views/footer', 'router', 'mixins/inputWatcher'], function(React, UIMain, UIFooter, router, InputWatcher) {
 
     var UIApp = React.createClass({
-        
+
+        mixins: [InputWatcher],
+
         render: function() {
 
             return ( 
                 <div>
 		    <header id="header">
 		    <h1>todos</h1>
-		    <input id="new-todo" ref="newTodo" placeholder="What needs to be done?" autoFocus="true" onKeyPress={this.handleNewTodoKeypress} />
+		    <input id="new-todo" 
+                ref="newTodo" 
+                placeholder="What needs to be done?" 
+                autoFocus="true" 
+                onKeyUp={this.inputWatcher.makeForRef('newTodo', this)} />
 		    </header>
 
                     <UIMain todos={this.props.todos} filter={this.state.filter} />
@@ -21,10 +25,6 @@ define(['react', 'jsx!views/main', 'jsx!views/footer', 'router', 'models/todos']
 
                     </div>
             );
-        },
-
-        getDefaultProps: function() {
-            return {todos: Todos};
         },
 
         getInitialState: function() {
@@ -51,12 +51,9 @@ define(['react', 'jsx!views/main', 'jsx!views/footer', 'router', 'models/todos']
 
         },
         
-        handleNewTodoKeypress: function(event) {
-            if (event.keyCode != ENTER_KEY) {
-                return;
-            }
-
-            var node = this.refs.newTodo.getDOMNode();
+        onEnter: function(refName, ref) {
+            // assuming newTodo ref
+            var node = ref.getDOMNode();
             var name = node.value.trim();
             if (name == "") {
                 return;
