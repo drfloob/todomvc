@@ -1,0 +1,16 @@
+{
+  "name": "todomvc-chinchilla-require",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "author": "A.J. Heller <aj@drfloob.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt": "~0.4.2",
+    "grunt-contrib-connect": "~0.6.0"
+  }
+}
