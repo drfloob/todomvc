@@ -15,13 +15,15 @@ require.config({
     }
 });
 
-require(['react', 'jsx!views/app', 'data/main', 'router'], function(React, App, Data, Router) {
+require(['react', 'jsx!views/app', 'data/main', 'router', 'updateKill'], function(React, App, Data, Router, udk) {
 
     var app = React.renderComponent(App({model: Data}), document.getElementById('todoapp'));
 
     Data.on('afterUpdate', function(newModel) {
-        console.log('newModel');
-        app.setProps({'model':  newModel});
+        if (!udk.isKilled()) {
+            console.log('newModel');
+            app.setProps({'model':  newModel});
+        }
     });
 
     Router.init();

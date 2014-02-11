@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-define(['react', 'underscore', 'jsx!views/todoList'], function(React, _, TodoList) {
+define(['react', 'underscore', 'jsx!views/todoList', 'updateKill'], function(React, _, TodoList, udk) {
 
     var Main = React.createClass({
 
@@ -35,12 +35,17 @@ define(['react', 'underscore', 'jsx!views/todoList'], function(React, _, TodoLis
         },
 
         toggleAll: function(event) {
+            udk.kill();
+
             var complete = event.target.checked;
             var tree = this.props.model;
             _.each(this.props.model.root().children(), function(t){
                 t = tree.findNode(t);
                 tree = t.update({completed: complete});
             });
+
+            udk.go();
+
         }
 
 
