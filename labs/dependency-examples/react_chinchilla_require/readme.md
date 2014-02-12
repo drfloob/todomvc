@@ -36,4 +36,4 @@ To run the app, run `./dev.sh` and visit http://localhost:8000/.
 
 ## Credit
 
-This TodoMVC application was created by [floob](http://drfloob.com/).
+This TodoMVC application was created by [A.J. Heller](http://drfloob.com/).
