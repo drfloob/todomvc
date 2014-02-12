@@ -1,50 +1,39 @@
-# React, Chinchilla, Require TodoMVC Example
+# React, Chinchilla, RequireJS TodoMVC Example
 
-> Short description of the framework provided by the official website.
+> React is a JavaScript library for creating user interfaces. Its core principles are declarative code, efficiency, and flexibility. Simply specify what your component looks like and React will keep it up-to-date when the underlying data changes.
 
-> _[Framework Name - framework.com](link-to-framework)_
+> _[React - facebook.github.io/react](http://facebook.github.io/react)_
 
+--------------------------------------------------------------------------------
 
-## Learning Framework Name
+> Chinchilla is an immutable "hash tree", or hierarchical dictionary.
 
-The [Framework Name website]() is a great resource for getting started.
-
-Here are some links you may find helpful:
-
-* [Documentation]()
-* [API Reference]()
-* [Applications built with Framework Name]()
-* [Blog]()
-* [FAQ]()
-* [Framework Name on GitHub]()
-
-Articles and guides from the community:
-
-* [Article 1]()
-* [Article 2]()
-
-Get help from other Framework Name users:
-
-* [Framework Name on StackOverflow](http://stackoverflow.com/questions/tagged/____)
-* [Mailing list on Google Groups]()
-* [Framework Name on Twitter](http://twitter.com/____)
-* [Framework Name on Google +]()
-
-_If you have other helpful links to share, or find any of the links above no longer work, please [let us know](https://github.com/tastejs/todomvc/issues)._
+> _[Chinchilla - github.com/drfloob/chinchilla](https://github.com/drfloob/chinchilla)_
 
 
-## Implementation
+## Framework
 
-How is the app structured? Are there deviations from the spec? If so, why?
+React and Chinchilla are the core of this framework. React on its own
+is a beautiful UI framework, but it does not suggest an application
+data model. Chinchilla provides a data model framework with all the
+benefits of immutable data structures.
 
+Compared to [Om](https://github.com/swannodette/om) on the "add 200
+todo items" benchmark, this framework is nearly as fast. Om's
+Benchmark 2 is ridiculous @ ~5ms. This framework clocks in at ~500ms on bechmark 2,
+which is still *10x faster* than the
+[Backbone.js reference implementation](http://swannodette.github.io/todomvc/architecture-examples/backbone/index.html).
+
+RequireJS is used as the module loader, and director is used for
+routing.
 
 ## Running
 
-If there is a build step required to get the example working, explain it here.
+To run the app, run `./dev.sh` and visit http://localhost:8000/.
 
-To run the app, spin up an HTTP server and visit http://localhost/.../myexample/.
-
+`dev.sh` runs livereload on all js files. To stop the server, run
+`./dev.sh -k`
 
 ## Credit
 
-This TodoMVC application was created by [you]().
+This TodoMVC application was created by [floob](http://drfloob.com/).
