@@ -1,11 +1,13 @@
 /** @jsx React.DOM */
 
-define(['react', 'router', 'data/main', 'jsx!views/main', 'jsx!views/footer'], function(React, router, data, Main, Footer) {
+define(['react', 'router', 'data/main', 'jsx!views/main', 'jsx!views/footer', 'mixins/timedRender'], function(React, router, data, Main, Footer, TimedRender) {
     'use strict';
 
     var ENTER_KEY = 13;
 
     var App = React.createClass({
+        
+        mixins: [TimedRender],
         
         render: function() {
 
@@ -40,6 +42,7 @@ define(['react', 'router', 'data/main', 'jsx!views/main', 'jsx!views/footer'], f
             ([router.ALL, router.ACTIVE, router.COMPLETED]).forEach(function(route) { 
                 router.on(route, setFilter(route));
             });
+
         },
         
         handleNewTodoKeypress: function(event) {
@@ -60,38 +63,4 @@ define(['react', 'router', 'data/main', 'jsx!views/main', 'jsx!views/footer'], f
     });
 
     return App;
-
-
-    // var Item = React.createClass({
-    //     componentWillMount: function() {
-    //         console.log('^ mounting', this.props.model.data());
-    //         var model = this.props.model,
-    //         f = _.partial(model.data() < 4 ? changeItem : removeItem, this);
-    //         setTimeout(f, DELAY * Math.random());
-    //     },
-    //     componentWillUnmount: function() {
-    //         console.log('$ unmounting', this.props.model.data());
-    //     },
-    //     componentWillUpdate:function () {
-    //         console.log('  updating', this.props.model.data());
-    //     },
-    //     render: function() {
-    //         return <li>{this.props.model.data()}</li>;
-    //     }
-    // });
-
-    // var App = React.createClass({
-    //     componentWillMount: function() {
-    //         router.on(router.ON.ALL, function(){console.log('app found /');});
-    //     },
-    //     render: function() {
-    //         return <ul>
-    //             {this.props.model.root().children().map(function(t) {
-    //                 return <Item key={t.data()} model={t} />;
-    //             })}
-    //         </ul>;
-    //     }
-    // });
-
-    // return App;
 });

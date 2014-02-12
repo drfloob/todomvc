@@ -1,8 +1,10 @@
 /** @jsx React.DOM */
 
-define(['react', 'underscore', 'jsx!views/todoList', 'updateKill'], function(React, _, TodoList, udk) {
+define(['react', 'underscore', 'jsx!views/todoList', 'mixins/timedRender'], function(React, _, TodoList, TimedRender) {
 
     var Main = React.createClass({
+
+        mixins: [TimedRender],
 
         render: function() {
             var count = this.props.model.root().children().length;
@@ -35,17 +37,12 @@ define(['react', 'underscore', 'jsx!views/todoList', 'updateKill'], function(Rea
         },
 
         toggleAll: function(event) {
-            udk.kill();
-
             var complete = event.target.checked;
-            var tree = this.props.model;
-            _.each(this.props.model.root().children(), function(t){
-                t = tree.findNode(t);
-                tree = t.update({completed: complete});
+            var tree = this.props.model.batch();
+            _.each(tree.root().children(), function(t){
+                t.update({completed: complete});
             });
-
-            udk.go();
-
+            tree.end();
         }
 
 

@@ -1,7 +1,7 @@
 {
   "name": "todomvc-chinchilla-require",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.0.2",
+  "description": "TodoMVC implemented with facebook/react, jburke/requirejs, drfloob/chinchilla, flatiron/director, and seiffert/require-jsx",
   "main": "index.html",
   "scripts": {
     "test": "grunt test"

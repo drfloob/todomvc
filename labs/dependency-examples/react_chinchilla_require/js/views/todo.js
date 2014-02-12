@@ -1,11 +1,12 @@
 /** @jsx React.DOM */
-define(['react'], function(React) {
+define(['react', 'mixins/timedRender'], function(React, TimedRender) {
 
     var ENTER_KEY = 13;
     var ESCAPE_KEY = 27;
 
     var Todo = React.createClass({
 
+        // mixins: [TimedRender],
         render: function(){
             var cx = React.addons.classSet({
                 'completed': this.props.todo.data().completed,

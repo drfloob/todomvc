@@ -1,7 +1,8 @@
 /** @jsx React.DOM */
-define(['react', 'underscore', 'jsx!views/todo', 'router'], function(React, _, Todo, router) {
+define(['react', 'underscore', 'jsx!views/todo', 'router', 'mixins/timedRender'], function(React, _, Todo, router, TimedRender) {
 
     var TodoList = React.createClass({
+        mixins: [TimedRender],
         render: function() {
             var lis = this.props.shownTodos.map(function(t) { 
                 return ( <Todo key={t.__id} todo={t} /> );

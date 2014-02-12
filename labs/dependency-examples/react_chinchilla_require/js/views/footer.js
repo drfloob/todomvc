@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-define(['react', 'underscore', 'router', 'updateKill'], function(React, _, router, udk) {
+define(['react', 'underscore', 'router'], function(React, _, router) {
 
     var Footer = React.createClass({
 
@@ -45,16 +45,9 @@ define(['react', 'underscore', 'router', 'updateKill'], function(React, _, route
         // CALLBACKS
         
         handleClearCompleted: function() {
-            udk.kill();
-
-            var tree = this.props.model;
-            _.each(tree.root().children(), function(k) {
-                k = tree.findNode(k);
-                if (k.data().completed)
-                    tree = k.remove();
-            });
-
-            udk.go();
+            this.props.model.root().removeAll(
+                _.filter(this.props.model.root().children(), function(k) { return k.data().completed; })
+            );
         }
 
     });
