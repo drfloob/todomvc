@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-define(['react', 'router', 'data/main', 'jsx!views/main', 'jsx!views/footer', 'mixins/timedRender'], function(React, router, data, Main, Footer, TimedRender) {
+define(['react', 'router', 'jsx!views/main', 'jsx!views/footer', 'mixins/timedRender'], function(React, router, Main, Footer, TimedRender) {
     'use strict';
 
     var ENTER_KEY = 13;
