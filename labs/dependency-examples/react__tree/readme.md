@@ -8,7 +8,7 @@
 
 > _tree is a javascript library that helps you generate immutable tree data structures.
 
-> _[\_tree - github.com/drfloob/_tree](https://github.com/drfloob/_tree)_
+> *[\_tree - github.com/drfloob/_tree](https://github.com/drfloob/_tree)*
 
 
 ## Framework
