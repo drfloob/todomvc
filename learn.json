@@ -2210,17 +2210,22 @@
 		"name": "React / _tree",
 		"description": "React UI powered by _tree's immutable models. Utilizes director, RequireJS, and require-jsx",
 		"homepage": "github.com/drfloob/_tree",
-		"source_path": [{
+		"examples": [{
 			"name": "Dependency Example",
 			"url": "labs/dependency-examples/react__tree"
 		}],
 		"link_groups": [{
 			"heading": "Resources",
-			"links": [{
-				"name": "React",
+			"links": [
+                            {
+                                "name": "React / _tree TodoMVC Source",
+                                "url": "https://github.com/drfloob/todomvc/tree/gh-pages/labs/dependency-examples/react__tree"
+                            },
+                            {
+				"name": "React Homepage",
 				"url": "facebook.github.io/react"
 			}, {
-				"name": "_tree",
+				"name": "_tree Homepage",
 				"url": "https://github.com/drfloob/_tree"
 			}]
 		}]
