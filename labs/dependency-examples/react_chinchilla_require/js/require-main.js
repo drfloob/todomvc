@@ -15,11 +15,11 @@ require.config({
     }
 });
 
-require(['react', 'jsx!views/app', 'data/main', 'router'], function(React, App, Data, Router) {
+require(['react', 'jsx!views/app', 'data/main', 'router'], function(React, App, TodoList, Router) {
 
-    var app = React.renderComponent(App({model: Data}), document.getElementById('todoapp'));
+    var app = React.renderComponent(App({model: TodoList}), document.getElementById('todoapp'));
 
-    Data.on('afterUpdate', function(newModel) {
+    TodoList.onUpdate(function(newModel) {
         console.log('newModel');
         app.setProps({'model':  newModel});
     });
@@ -28,7 +28,7 @@ require(['react', 'jsx!views/app', 'data/main', 'router'], function(React, App, 
         var s, e, b;
 
         s = Date.now();
-        b = Data.batch();
+        b = TodoList.batch();
         _.each(_.range(200), function() {
             b.root().parseAndAddChild([{name: 'todo', completed: false}]);
         });
@@ -41,7 +41,7 @@ require(['react', 'jsx!views/app', 'data/main', 'router'], function(React, App, 
         var s, e, b;
         s = Date.now();
 
-        b = Data.batch();
+        b = TodoList.batch();
         _.each(_.range(200), function() {
             b.root().parseAndAddChild([{name: 'todo', completed: false}]);
         });
