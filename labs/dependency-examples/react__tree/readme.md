@@ -1,4 +1,4 @@
-# React, Chinchilla, RequireJS TodoMVC Example
+# React, _tree, RequireJS TodoMVC Example
 
 > React is a JavaScript library for creating user interfaces. Its core principles are declarative code, efficiency, and flexibility. Simply specify what your component looks like and React will keep it up-to-date when the underlying data changes.
 
@@ -6,22 +6,22 @@
 
 --------------------------------------------------------------------------------
 
-> Chinchilla is an immutable "hash tree", or hierarchical dictionary.
+> _tree is a javascript library that helps you generate immutable tree data structures.
 
-> _[Chinchilla - github.com/drfloob/chinchilla](https://github.com/drfloob/chinchilla)_
+> _[_tree - github.com/drfloob/_tree](https://github.com/drfloob/_tree)_
 
 
 ## Framework
 
-React and Chinchilla are the core of this framework. React on its own
+`React` and `_tree` are the core of this framework. `React` on its own
 is a beautiful UI framework, but it does not suggest an application
-data model. Chinchilla provides a data model framework with all the
-benefits of immutable data structures.
+data model. `_tree` provides a powerful, performant data modeling
+framework with all the benefits of immutable data structures.
 
-Compared to [Om](https://github.com/swannodette/om) on the "add 200
-todo items" benchmark, this framework is nearly as fast. Om's
-Benchmark 2 is ridiculous @ ~5ms. This framework clocks in at ~500ms on bechmark 2,
-which is still *10x faster* than the
+Compared to [Om](https://github.com/swannodette/om), benchmark 1 is
+just as fast, and benchmark 2 is only slightly slower. This framework
+clocks in at ~60ms on bechmark 2, which is still *100x faster* than
+the
 [Backbone.js reference implementation](http://swannodette.github.io/todomvc/architecture-examples/backbone/index.html).
 
 RequireJS is used as the module loader, and director is used for

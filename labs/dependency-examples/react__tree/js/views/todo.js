@@ -16,13 +16,13 @@ define(['react', 'mixins/timedRender'], function(React, TimedRender) {
                     <li ref="li" className={cx}>
 		    <div className="view">
 		    <input className="toggle" type="checkbox" checked={this.props.todo.data().completed} onChange={this.handleComplete} />
-		    <label onDoubleClick={this.handleDoubleClick} >{this.props.todo.data().name}</label>
+		    <label onDoubleClick={this.handleDoubleClick} >{this.props.todo.title()}</label>
 		    <button className="destroy" onClick={this.handleDestroy}></button>
 		    </div>
 		    <input 
                 ref="edit" 
                 className="edit" 
-                value={this.state.name} 
+                value={this.state.title} 
                 onChange={this.handleChangeEdit} 
                 onKeyUp={this.handleEditKeypress} 
                 onBlur={this.saveEdits}
@@ -47,13 +47,13 @@ define(['react', 'mixins/timedRender'], function(React, TimedRender) {
         },
 
         handleChangeEdit: function(evt) {
-            this.setState({name: evt.target.value});
+            this.setState({title: evt.target.value});
         },
 
         handleEditKeypress: function(evt) {
             if (evt.keyCode == ESCAPE_KEY) {
-                this.refs.edit.getDOMNode().value = this.props.todo.data().name;
-                this.setState({editing: false, name: this.props.todo.data().name});
+                this.refs.edit.getDOMNode().value = this.props.todo.title();
+                this.setState({editing: false, title: this.props.todo.title()});
                 return;
             }
             if (evt.keyCode != ENTER_KEY) {
@@ -68,8 +68,8 @@ define(['react', 'mixins/timedRender'], function(React, TimedRender) {
         // INTERNAL FUNCTIONS
 
         saveEdits: function() {
-            this.props.todo.name(this.refs.edit.getDOMNode().value.trim());
-            if (this.props.todo.data().name === '') {
+            this.props.todo.title(this.refs.edit.getDOMNode().value.trim());
+            if (this.props.todo.title() === '') {
                 this.props.todo.remove();
             };
             this.setState({editing: false});
@@ -81,11 +81,11 @@ define(['react', 'mixins/timedRender'], function(React, TimedRender) {
         // COMPONENT LIFECYCLE METHODS
 
         getInitialState: function(){
-            return {editing: false, name: this.props.todo.data().name};
+            return {editing: false, title: this.props.todo.title()};
         },
 
         componentWillReceiveProps: function(nextProps) {
-            this.setState({editing: false, name: nextProps.todo.data().name});
+            this.setState({editing: false, title: nextProps.todo.title()});
         },
 
         componentDidUpdate: function() {

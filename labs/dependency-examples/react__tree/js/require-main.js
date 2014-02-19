@@ -4,7 +4,6 @@ require.config({
         'jsx': '../bower_components/require-jsx/jsx',
         'director': '../bower_components/director/build/director',
         'JSXTransformer': '../bower_components/react/JSXTransformer',
-        'chinchilla': '../bower_components/chinchilla/dist/chinchilla.min',
         'underscore': '../bower_components/underscore/underscore',
         '_tree': '../bower_components/_tree/src/_tree',
     },
@@ -22,6 +21,7 @@ require(['react', 'jsx!views/app', 'data/main', 'router'], function(React, App, 
     TodoList.onUpdate(function(newModel) {
         console.log('newModel');
         TodoList = newModel;
+        localStorage.setItem('todomvc-_tree', JSON.stringify(newModel.serialize()));
         app.setProps({'model':  newModel});
     });
 
@@ -31,7 +31,7 @@ require(['react', 'jsx!views/app', 'data/main', 'router'], function(React, App, 
         s = Date.now();
         b = TodoList.batch();
         _.each(_.range(200), function() {
-            b.root().parseAndAddChild({name: 'todo', completed: false});
+            b.newTodo('todo');
         });
         b.end();
         e = Date.now();
@@ -44,14 +44,14 @@ require(['react', 'jsx!views/app', 'data/main', 'router'], function(React, App, 
 
         b = TodoList.batch();
         _.each(_.range(200), function() {
-            b.root().parseAndAddChild({name: 'todo', completed: false});
+            b.newTodo('todo');
         });
         _.each(_.range(5), function() {
-            _.each(b.root().children(), function(k) {
+            _.each(b.getAll(), function(k) {
                 k.toggleCompleted();
             });
         });
-        b.root().removeAll(b.root().children());
+        b.root().removeAll(b.getAll());
 
         b.end();
 

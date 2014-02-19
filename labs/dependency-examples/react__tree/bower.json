@@ -1,6 +1,6 @@
 {
-    "name": "todomvc-chinchilla-require",
-    "version": "0.0.1",
+    "name": "todomvc-_tree",
+    "version": "0.0.3",
     "dependencies": {
 	"todomvc-common": "~0.1.4",
         "_tree": "drfloob/_tree",

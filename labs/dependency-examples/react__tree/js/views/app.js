@@ -51,12 +51,12 @@ define(['react', 'router', 'jsx!views/main', 'jsx!views/footer', 'mixins/timedRe
             }
 
             var node = this.refs.newTodo.getDOMNode();
-            var name = node.value.trim();
-            if (name == "") {
+            var title = node.value.trim();
+            if (title == "") {
                 return;
             }
 
-            this.props.model.add({name: name});
+            this.props.model.newTodo(title);
             node.value = "";
         }
 
