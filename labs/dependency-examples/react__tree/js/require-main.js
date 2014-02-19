@@ -35,7 +35,7 @@ require(['react', 'jsx!views/app', 'data/main', 'router'], function(React, App, 
         });
         b.end();
         e = Date.now();
-        document.getElementById("message").innerText = e-s;
+        document.getElementById("message").textContent = e-s;
     };
 
     document.getElementById('bench2').onclick = function(event) {
@@ -56,7 +56,7 @@ require(['react', 'jsx!views/app', 'data/main', 'router'], function(React, App, 
         b.end();
 
         e = Date.now();
-        document.getElementById("message").innerText = e-s;
+        document.getElementById("message").textContent = e-s;
     };
 
     Router.init();
