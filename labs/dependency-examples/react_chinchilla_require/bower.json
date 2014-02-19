@@ -3,10 +3,11 @@
     "version": "0.0.1",
     "dependencies": {
 	"todomvc-common": "~0.1.4",
-        "chinchilla": "drfloob/chinchilla",
+        "_tree": "drfloob/_tree",
         "react": "~0.8.0",
         "director": "~1.2.2",
         "requirejs": "~2.1.10",
-        "require-jsx": ""
+        "require-jsx": "",
+        "underscore": ""
     }
 }

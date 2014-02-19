@@ -35,7 +35,7 @@ define(['react', 'mixins/timedRender'], function(React, TimedRender) {
         // CALLBACKS
 
         handleComplete: function() {
-            this.props.todo.update({completed: !this.props.todo.data().completed});
+            this.props.todo.toggleCompleted();
         },
 
         handleDestroy: function() {
@@ -68,7 +68,7 @@ define(['react', 'mixins/timedRender'], function(React, TimedRender) {
         // INTERNAL FUNCTIONS
 
         saveEdits: function() {
-            this.props.todo.update({name: this.refs.edit.getDOMNode().value.trim()});
+            this.props.todo.name(this.refs.edit.getDOMNode().value.trim());
             if (this.props.todo.data().name === '') {
                 this.props.todo.remove();
             };

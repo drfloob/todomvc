@@ -21,6 +21,7 @@ require(['react', 'jsx!views/app', 'data/main', 'router'], function(React, App, 
 
     TodoList.onUpdate(function(newModel) {
         console.log('newModel');
+        TodoList = newModel;
         app.setProps({'model':  newModel});
     });
 
@@ -30,7 +31,7 @@ require(['react', 'jsx!views/app', 'data/main', 'router'], function(React, App, 
         s = Date.now();
         b = TodoList.batch();
         _.each(_.range(200), function() {
-            b.root().parseAndAddChild([{name: 'todo', completed: false}]);
+            b.root().parseAndAddChild({name: 'todo', completed: false});
         });
         b.end();
         e = Date.now();
@@ -43,11 +44,11 @@ require(['react', 'jsx!views/app', 'data/main', 'router'], function(React, App, 
 
         b = TodoList.batch();
         _.each(_.range(200), function() {
-            b.root().parseAndAddChild([{name: 'todo', completed: false}]);
+            b.root().parseAndAddChild({name: 'todo', completed: false});
         });
         _.each(_.range(5), function() {
             _.each(b.root().children(), function(k) {
-                k.update({completed: !k.data().completed});
+                k.toggleCompleted();
             });
         });
         b.root().removeAll(b.root().children());

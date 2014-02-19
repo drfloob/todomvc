@@ -33,14 +33,14 @@ define(['react', 'underscore', 'jsx!views/todoList', 'mixins/timedRender'], func
 
         updateAllChecked: function(props) {
             // console.log('props is', props);
-            props.allChecked = _.every(props.model.root().children(), function(k) { return k.data().completed });
+            props.allChecked = props.model.areAllCompleted();
         },
 
         toggleAll: function(event) {
             var complete = event.target.checked;
             var tree = this.props.model.batch();
             _.each(tree.root().children(), function(t){
-                t.update({completed: complete});
+                t.complete(complete);
             });
             tree.end();
         }

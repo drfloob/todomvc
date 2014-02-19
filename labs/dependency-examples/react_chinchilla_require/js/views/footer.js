@@ -1,12 +1,12 @@
 /** @jsx React.DOM */
 
-define(['react', 'underscore', 'router'], function(React, _, router) {
+define(['react', 'router'], function(React, router) {
 
     var Footer = React.createClass({
 
         render: function() {
-            var completed = _.filter(this.props.model.root().children(), function(k) { return k.data().completed; });
-            var active = _.filter(this.props.model.root().children(), function(k) { return !k.data().completed; });
+            var completed = this.props.model.getCompleted();
+            var active = this.props.model.getActive();
 
             var totalCount = this.props.model.root().children().length;
             var completedCount = completed.length;
@@ -45,9 +45,10 @@ define(['react', 'underscore', 'router'], function(React, _, router) {
         // CALLBACKS
         
         handleClearCompleted: function() {
-            this.props.model.root().removeAll(
-                _.filter(this.props.model.root().children(), function(k) { return k.data().completed; })
-            );
+            this.props.model.clearCompleted();
+            // this.props.model.root().removeAll(
+            //     _.filter(this.props.model.root().children(), function(k) { return k.data().completed; })
+            // );
         }
 
     });
