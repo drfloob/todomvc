@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" data-framework="react">
+  <head>
+    <meta charset="utf-8">
+    <title>React • TodoMVC</title>
+    <link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+  </head>
+  <body>
+    <div style="text-align: center; margin-top: 20px;">
+      <input type="button" value="Benchmark 1" id="bench1">
+      <input type="button" value="Benchmark 2" id="bench2">
+    </div>
+    <div id="message" style="text-align: center"></div>    
+
+
+    <section id="todoapp"></section>
+    <footer id="info"></footer>
+    <div id="benchmark"></div>
+
+    <script src="bower_components/todomvc-common/base.js"></script>
+    <script src="bower_components/react/react-with-addons.js"></script>
+    <script src="bower_components/react/JSXTransformer.js"></script>
+    <script src="bower_components/director/build/director.js"></script>
+
+    <script type="text/jsx" src="js/utils.jsx"></script>
+    <script type="text/javascript" src="js/todoModel.js"></script>
+    <script type="text/jsx" src="js/todoItem.jsx"></script>
+    <script type="text/jsx" src="js/footer.jsx"></script>
+    <script type="text/jsx" src="js/app.jsx"></script>
+  </body>
+</html>
